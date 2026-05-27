@@ -15,13 +15,13 @@
       "links": {
         "modmenu.discord": "${discord_url}"
       }
-    }
+    },
+    "polymer:resource_pack_include": true
   },
   "description": "${description}",
   "icon": "icon.png",
   "license": "${license}",
   "environment": "*",
-  "accessWidener": "aw/${minecraft}.accesswidener",
   "entrypoints": {
     "main": [
       "${group}.${id}.platform.fabric.FabricEntrypoint"

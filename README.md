@@ -4,7 +4,7 @@ Ever thought it's stupid that there is no way to prevent pillager outposts from 
 
 This mod stops pillagers from spawning at their pillager outpost if enough pillagers have been killed near the outpost. Participating players will receive on-screen messages indicating their progress at the current outpost.
 
-The mod is fully server-side but also works in singleplayer.
+The mod is fully server-side but also works in singleplayer. If server-side, installing the mod on the client or installing [Polymer](https://modrinth.com/mod/polymer) on the server and enabling Auto-Host will enable custom text and translations for on-screen progress messages on the client, otherwise default English text will be used.
 
 ### Game rules
 - `required_kills_to_prevent_spawning`: Amount of mob kills near the structure required to prevent spawning around the structure (default 100)

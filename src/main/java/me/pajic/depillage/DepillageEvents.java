@@ -52,13 +52,13 @@ public class DepillageEvents {
 										playerPos.distToCenterSqr(killer.position()) < radius * radius;
 							})) {
 								if (remainingKills == 2) player.sendOverlayMessage(Component.translatableWithFallback(
-										"message.depillage" + entityTypeString + ".remainingEnemy", "message.depillage.remainingEnemy"
+										"message.depillage" + entityTypeString + ".remainingEnemy", "1 enemy remaining"
 								));
 								else if (remainingKills > 1) player.sendOverlayMessage(Component.translatableWithFallback(
-										"message.depillage" + entityTypeString + ".remainingEnemies", "message.depillage.remainingEnemies", remainingKills - 1
+										"message.depillage" + entityTypeString + ".remainingEnemies", remainingKills - 1 + " enemies remaining", remainingKills - 1
 								));
 								else player.sendOverlayMessage(Component.translatableWithFallback(
-										"message.depillage" + structureString + ".structureCleared", "message.depillage.structureCleared"
+										"message.depillage" + structureString + ".structureCleared", "Structure cleared!"
 								));
 							}
 						}
