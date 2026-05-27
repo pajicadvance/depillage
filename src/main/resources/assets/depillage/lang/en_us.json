@@ -1,0 +1,14 @@
+{
+  "depillage.required_kills_to_prevent_spawning": "Required kills to prevent spawning",
+  "gamerule.depillage.required_kills_to_prevent_spawning": "Amount of kills near a structure required to prevent spawning",
+  "depillage.structure_kill_counting_radius": "Structure kill counting radius",
+  "gamerule.depillage.structure_kill_counting_radius": "Radius in blocks around structures where kills are counted",
+
+  "message.depillage.pillager.remainingEnemies": "%s pillagers remaining",
+  "message.depillage.pillager.remainingEnemy": "1 pillager remaining",
+  "message.depillage.pillager_outpost.structureCleared": "Outpost liberated!",
+
+  "message.depillage.remainingEnemies": "%s enemies remaining",
+  "message.depillage.remainingEnemy": "1 enemy remaining",
+  "message.depillage.structureCleared": "Structure cleared!"
+}
