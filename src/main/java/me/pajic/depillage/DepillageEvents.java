@@ -26,7 +26,7 @@ public class DepillageEvents {
 	public static void onPlayerKillStructureEnemy(ServerLevel level, Entity killer, LivingEntity victim) {
 		if (killer instanceof Player) {
 			BlockPos victimPos = victim.blockPosition();
-			BlockPos structurePos = level.findNearestMapStructure(DepillageTags.CLEARABLE, victimPos, 1, false);
+			BlockPos structurePos = level.findNearestMapStructure(DepillageTags.CLEARABLE, victimPos, 0, false);
 			if (structurePos != null) {
 				int radius = level.getGameRules().get(DepillageGameRules.KILL_COUNT_RADIUS);
 				if (
@@ -73,7 +73,7 @@ public class DepillageEvents {
 		Optional<HolderSet.Named<Structure>> opt = lookup.get(DepillageTags.CLEARABLE);
 		Identifier id = lookup.getKey(structure);
 		if (opt.isPresent() && id != null && opt.get().stream().anyMatch(holder -> holder.is(id))) {
-			BlockPos structurePos = level.findNearestMapStructure(DepillageTags.CLEARABLE, pos, 1, false);
+			BlockPos structurePos = level.findNearestMapStructure(DepillageTags.CLEARABLE, pos, 0, false);
 			if (structurePos != null) {
 				Identifier structureId = lookup.getKey(structure);
 				StructureKillCounts data = ((ServerLevelExtension) level).depillage$getStructureKillCounts();

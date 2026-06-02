@@ -11,7 +11,7 @@ import net.minecraft.world.level.gamerules.GameRuleTypeVisitor;
 public class DepillageGameRules {
 
 	public static GameRule<Integer> REQUIRED_KILLS = positiveNonZeroIntRangeRule(100, Integer.MAX_VALUE);
-	public static GameRule<Integer> KILL_COUNT_RADIUS = positiveNonZeroIntRangeRule(64, 128);
+	public static GameRule<Integer> KILL_COUNT_RADIUS = positiveNonZeroIntRangeRule(64, 96);
 
 	private static GameRule<Integer> positiveNonZeroIntRangeRule(int defaultValue, int max) {
 		return new GameRule<>(

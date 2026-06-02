@@ -1,1 +1,1 @@
-- Initial release.
+- Reduced maximum possible mob kill count radius to 96 for performance reasons.
