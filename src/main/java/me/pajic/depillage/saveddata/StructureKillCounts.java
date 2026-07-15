@@ -12,7 +12,14 @@ import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.saveddata.SavedData;
+//? if >=26.1 {
 import net.minecraft.world.level.saveddata.SavedDataType;
+//?} else {
+/*import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtOps;
+*///?}
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,6 +43,7 @@ public class StructureKillCounts extends SavedData {
 		return new BlockPos(Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2]));
 	}
 
+	//? if >=26.1 {
     public static final SavedDataType<StructureKillCounts> TYPE = new SavedDataType<>(
             Depillage.id("structure_kill_counts"),
 			StructureKillCounts::new,
@@ -46,6 +54,23 @@ public class StructureKillCounts extends SavedData {
     public static SavedDataType<StructureKillCounts> getType() {
         return TYPE;
     }
+	//?} else {
+	/*public static final SavedData.Factory<StructureKillCounts> FACTORY = new SavedData.Factory<>(
+			StructureKillCounts::new,
+			StructureKillCounts::load,
+			DataFixTypes.LEVEL
+	);
+
+	private static StructureKillCounts load(CompoundTag tag, HolderLookup.Provider registries) {
+		return CODEC.parse(NbtOps.INSTANCE, tag.getCompound(Depillage.MOD_ID)).result().orElseGet(StructureKillCounts::new);
+	}
+
+	@Override
+	public CompoundTag save(CompoundTag tag, HolderLookup.Provider registries) {
+		tag.put(Depillage.MOD_ID, CODEC.encodeStart(NbtOps.INSTANCE, this).getOrThrow());
+		return tag;
+	}
+	*///?}
 
     public StructureKillCounts() {
         setDirty();
@@ -64,18 +89,22 @@ public class StructureKillCounts extends SavedData {
 	public void initStructureData(String descriptionId, BlockPos pos, StructureSpawnOverride override) {
 		if (!structures.containsKey(pos)) {
 			List<EntityType<?>> spawns = new ArrayList<>();
+			//? if >=26.1 {
 			override.spawns().unwrap().forEach(spawnerDataWeighted -> spawns.add(spawnerDataWeighted.value().type()));
+			//?} else {
+			/*override.spawns().unwrap().forEach(spawnerData -> spawns.add(spawnerData.type));
+			*///?}
 			structures.put(pos, new StructureData(descriptionId, spawns));
 			setDirty();
 		}
 	}
 
     public boolean isStructureCleared(ServerLevel level, BlockPos pos) {
-        return structures.containsKey(pos) && structures.get(pos).count >= level.getGameRules().get(DepillageGameRules.REQUIRED_KILLS);
+        return structures.containsKey(pos) && structures.get(pos).count >= DepillageGameRules.getInt(level, DepillageGameRules.REQUIRED_KILLS);
     }
 
 	public int getRemainingKillsForStructure(ServerLevel level, BlockPos pos) {
-		int required = level.getGameRules().get(DepillageGameRules.REQUIRED_KILLS);
+		int required = DepillageGameRules.getInt(level, DepillageGameRules.REQUIRED_KILLS);
 		return structures.containsKey(pos) ? required - structures.get(pos).count : required;
 	}
 
@@ -96,7 +125,11 @@ public class StructureKillCounts extends SavedData {
 		public static final Codec<StructureData> CODEC = RecordCodecBuilder.create(
 				instance -> instance.group(
 						Codec.STRING.fieldOf("descriptionId").forGetter(o -> o.descriptionId),
+						//? if >=26.1 {
 						EntityType.CODEC.listOf().fieldOf("countedEntities").forGetter(o -> o.countedEntities),
+						//?} else {
+						/*BuiltInRegistries.ENTITY_TYPE.byNameCodec().listOf().fieldOf("countedEntities").forGetter(o -> o.countedEntities),
+						*///?}
 						Codec.INT.fieldOf("count").forGetter(o -> o.count)
 				).apply(instance, StructureData::new)
 		);

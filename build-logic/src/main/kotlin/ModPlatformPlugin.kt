@@ -75,7 +75,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 		version = "$modVersion$channelTag+$mcVersion-$loader"
 
-		extension.requiredJava.set(JavaVersion.VERSION_25)
+		extension.requiredJava.set(if (mcVersion.startsWith("1.")) JavaVersion.VERSION_21 else JavaVersion.VERSION_25)
 
 		if (isFabric) {
 			extension.dependencies { required("java") { versionRange = ">=${extension.requiredJava.get().majorVersion}" } }
