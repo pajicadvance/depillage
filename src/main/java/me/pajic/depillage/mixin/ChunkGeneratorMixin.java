@@ -27,9 +27,15 @@ public class ChunkGeneratorMixin implements ChunkGeneratorExtension {
     )
     private boolean noStructureMobSpawnsIfCleared(
 			boolean original,
+			//? if >=26.1 {
 			@Local(argsOnly = true, name = "pos") BlockPos pos,
 			@Local(name = "structure") Structure structure,
 			@Local(name = "override") StructureSpawnOverride override
+			//?} else {
+			/*@Local(argsOnly = true) BlockPos pos,
+			@Local Structure structure,
+			@Local StructureSpawnOverride override
+			*///?}
 	) {
 		return DepillageEvents.interceptSpawnAttempt(depillage$serverLevel, pos, structure, override, original);
     }
